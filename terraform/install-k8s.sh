@@ -49,8 +49,8 @@ EOF
 echo "establish docker service directory"
 mkdir -p /etc/systemd/system/docker.service.d
 
-echo "install systemd"
-apt-get -y install systemd
+#echo "install systemd - cmon this should be available n ubuntu!"
+#apt-get -y install systemd
 
 echo "enable docker service start on boot"
 systemctl enable docker
