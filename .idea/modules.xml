@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/k8s-hard-way.iml" filepath="$PROJECT_DIR$/.idea/k8s-hard-way.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/k8s-kubeadm-way.iml" filepath="$PROJECT_DIR$/.idea/k8s-kubeadm-way.iml" />
     </modules>
   </component>
 </project>

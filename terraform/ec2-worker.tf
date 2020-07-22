@@ -15,7 +15,7 @@ resource "aws_instance" "worker1" {
 
   tags = merge(local.common_tags,
   {
-    description = "worker1"
+    description = "k8s-worker1"
   })
   depends_on = [aws_security_group.ingress-all]
 }
@@ -38,7 +38,7 @@ resource "aws_instance" "worker2" {
 
   tags = merge(local.common_tags,
   {
-    description = "worker2"
+    description = "k8s-worker2"
   })
   depends_on = [aws_security_group.ingress-all]
 }

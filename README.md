@@ -4,4 +4,5 @@
 This project adds terraform support to the instructions below:
 see https://github.com/Praqma/LearnKubernetes/blob/master/kamran/Kubernetes-The-Hard-Way-on-AWS.md
 
- 
+
+ ex
