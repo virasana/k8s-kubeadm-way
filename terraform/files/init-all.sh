@@ -11,7 +11,7 @@ EOT
 
 function logIt {
   local text=$$1
-  echo "=====> $${text}"
+  echo "=====> $${text}" | tee -a /tmp/kubeadm-install.log
 }
 
 echo "***********************************************************"
