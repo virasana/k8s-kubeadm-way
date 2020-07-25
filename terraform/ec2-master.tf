@@ -7,11 +7,11 @@ resource "aws_instance" "master" {
   vpc_security_group_ids = [
     aws_security_group.ingress-all.id]
 
-  user_data = templatefile("${path.module}/files/init.sh", {})
+  user_data = data.cloudinit_config.master.rendered
 
   availability_zone = var.availability_zone
   subnet_id         = aws_subnet.public_k8s.id
-  private_ip        = "10.0.0.137"
+  private_ip        = var.ip_master
 
   tags = merge(local.common_tags,
   {
@@ -21,3 +21,31 @@ resource "aws_instance" "master" {
   depends_on = [aws_security_group.ingress-all]
 
 }
+
+
+
+data "cloudinit_config" "master" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/cloud-config"
+    content      = <<EOF
+#cloud-config
+write_files:
+  - content: |
+      ${base64encode(file("${path.module}/files/init-master.sh"))}
+    encoding: b64
+    owner: root:root
+    path: /usr/local/bin/init-node.sh
+    permissions: '0750'
+EOF
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = file("${path.module}/files/init-all.sh")
+  }
+}
+
+

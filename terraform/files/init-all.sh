@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "setup hosts file"
+
 cat <<EOT >> /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 10.0.0.137	master
@@ -8,17 +9,16 @@ cat <<EOT >> /etc/hosts
 10.0.0.182	worker2
 EOT
 
-echo "***********************************************************"
-echo "===> KUBEADM PREREQUISITES <==="
-
 function logIt {
-  local text=$1
+  local text=$$1
   echo "=====> $${text}"
 }
 
+echo "***********************************************************"
+echo "===> KUBEADM PREREQUISITES <==="
+
 logIt "check root access"
 if [[ $(id -u) -ne 0 ]] ; then logIt "please run as root" ; exit 1 ; fi
-
 
 logIt "load the br_netfilter module"
 modprobe br_netfilter
@@ -32,7 +32,7 @@ EOF
 sudo sysctl --system
 
 logIt "https://kubernetes.io/docs/setup/production-environment/container-runtimes/"
-logIt "set up the repository:"
+logIt "set up the repository"
 logIt "install packages to allow apt to use a repository over https"
 apt-get update && apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
@@ -86,6 +86,10 @@ EOF
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+
+logIt "initialise the node"
+/usr/local/bin/init-node.sh
+
 
 
 

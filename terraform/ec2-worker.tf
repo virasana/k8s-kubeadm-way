@@ -7,7 +7,7 @@ resource "aws_instance" "worker1" {
   vpc_security_group_ids = [
     aws_security_group.ingress-all.id]
 
-  user_data = templatefile("${path.module}/files/init.sh", {})
+  user_data = templatefile("${path.module}/files/init-all.sh", {})
 
   availability_zone = var.availability_zone
   subnet_id         = aws_subnet.public_k8s.id
@@ -30,7 +30,7 @@ resource "aws_instance" "worker2" {
   vpc_security_group_ids = [
     aws_security_group.ingress-all.id]
 
-  user_data = templatefile("${path.module}/files/init.sh", {})
+  user_data = templatefile("${path.module}/files/init-all.sh", {})
 
   availability_zone = var.availability_zone
   subnet_id         = aws_subnet.public_k8s.id
